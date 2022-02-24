@@ -1,6 +1,7 @@
 
 
 module.exports = {
+  contracts_build_directory: "./public/contracts", //changed build location to public folder then recompiled
   networks: {
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
