@@ -14,6 +14,13 @@ function App() {
 
   const [balance, setBalance] = useState(null);
   const [account, setAccount] = useState(null);
+  const [shouldReload, setShouldReload] = useState(false);
+
+  const reloadEffect = () => setShouldReload(!shouldReload); //when below useEffect is triggered, it sets to true, so it reloads. Then it sets to false after
+
+  const setAccountListener = (provider) => { //this is executed everytime your account is changed in metamask
+    provider.on("accountsChanged", (accounts) => setAccount(accounts[0]))
+  }
   
 
   //This loads metamask and set the provider
@@ -24,6 +31,7 @@ function App() {
 
       
       if(provider) {
+        setAccountListener(provider); //this is what listens to what account you are using.
         // provider.request({method: "eth_requestAccounts"}); //asks you to login
         //because of button, we are not going to ask user to login until button is pressed
         
@@ -51,7 +59,7 @@ function App() {
     }
 
     web3Api.contract && loadBalance()
-  }, [web3Api]) //web3Api is a dependency
+  }, [web3Api, shouldReload]) //web3Api and shouldReload are dependencies. We want the function to trigger when either is changed
 
   //this gets your account
   useEffect(() => { //this runs when any value in the array below changes
@@ -72,7 +80,18 @@ function App() {
       from: account,
       value: web3.utils.toWei("1", "ether")
     })
-    
+
+    // window.location.reload(); //reloads the page
+    reloadEffect(); //reloads the page
+  }
+
+  const withdraw = async () => {
+    const {contract, web3} = web3Api; //this is destructuring
+    const withdrawAmount = web3.utils.toWei("0.1", "ether")
+    await contract.withdraw(withdrawAmount, { //withdraw takes an argument
+      from: account
+    })
+    reloadEffect();
   }
 
 
@@ -100,7 +119,9 @@ function App() {
           <button 
             onClick = {addFunds}
             className = "button is-primary mr-2">Donate 1 ETH</button>
-          <button className = "button is-link">Withdraw</button>
+          <button 
+            onClick = {withdraw}
+            className = "button is-link">Withdraw .01 ETH</button>
         </div>
       </div>
     </>
