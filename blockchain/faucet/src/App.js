@@ -19,7 +19,14 @@ function App() {
   const reloadEffect = () => setShouldReload(!shouldReload); //when below useEffect is triggered, it sets to true, so it reloads. Then it sets to false after
 
   const setAccountListener = (provider) => { //this is executed everytime your account is changed in metamask
-    provider.on("accountsChanged", (accounts) => setAccount(accounts[0]))
+    provider.on("accountsChanged", (accounts) => window.location.reload()) //reloads page when changing accounts
+
+    // provider._jsonRpcConnection.events.on("notification", (payload) => { //this deals with locking account and then logging back in
+    //   const {method} = payload
+    //   if (method === "metamask_unlockStateChanged") {
+    //     setAccount(null)
+    //   }
+    // })
   }
   
 
@@ -27,10 +34,10 @@ function App() {
   useEffect(() => { //kinda like componentwillmount. This happens once when the program loads
     const loadProvider = async () => {
       const provider = await detectEthereumProvider();
-      const contract = await loadContract("Faucet", provider);
-
       
+
       if(provider) {
+        const contract = await loadContract("Faucet", provider);
         setAccountListener(provider); //this is what listens to what account you are using.
         // provider.request({method: "eth_requestAccounts"}); //asks you to login
         //because of button, we are not going to ask user to login until button is pressed
@@ -105,6 +112,15 @@ function App() {
             </span>
             { account ? 
               <div>{account}</div> : 
+              !web3Api.provider ?
+              <>
+                <div className = "notification is-warning is-size-6 is-rounded">
+                  Wallet is not detected!{` `} 
+                  <a target = "_blank" href = "https://docs.metamask.io">
+                     Install Metamask
+                  </a>
+                </div>
+              </> :
               <button className = "button is-small"
                 onClick = {() => web3Api.provider.request("eth_requestAccounts")}
               > 
@@ -117,9 +133,11 @@ function App() {
             Current Balance: <strong>{balance}</strong> ETH
           </div>
           <button 
+            disabled = {!account}
             onClick = {addFunds}
             className = "button is-primary mr-2">Donate 1 ETH</button>
           <button 
+            disabled = {!account}
             onClick = {withdraw}
             className = "button is-link">Withdraw .01 ETH</button>
         </div>
