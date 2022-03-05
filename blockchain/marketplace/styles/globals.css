@@ -6,3 +6,7 @@
 .fit {
     min-height: calc(100vh - 88px);
 }
+
+.bottom {
+    padding-top: 400px;
+}
