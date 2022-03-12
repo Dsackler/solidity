@@ -6,7 +6,7 @@ import { EthRates, WalletDisplay } from "@components/web3"
 export default function Home() {
   return (
     
-    <div class = "container-md">
+    <div className = "container-md">
       <Navbar />
       <Hero />
       <Breadcrumbs />
