@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => { //this allows bootstraps functional components to work
     import("bootstrap/dist/js/bootstrap");
   }, []);
+  
   return <Component {...pageProps} />
 }
 

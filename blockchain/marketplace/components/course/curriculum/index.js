@@ -13,8 +13,8 @@ export default function Curriculum() {
 
     return (
         <div className = "pt-10">
-            <div class="card border-0 shadow-md">
-                <div class="card-header">
+            <div className="card border-0 shadow-md">
+                <div className="card-header">
                     <div className = "row text-muted font-semibold">
                         <div className = "col-lg">
                             Section
@@ -24,9 +24,9 @@ export default function Curriculum() {
                         </div>
                     </div>
                 </div>
-                <ul class="list-group list-group-flush">
+                <ul className="list-group list-group-flush">
                     {lectures.map(lec => 
-                        <li class="list-group-item py-3 px-4 font-semibold">
+                        <li className="list-group-item py-3 px-4 font-semibold">
                             <div className = "row">
                                 <div className = "col-lg-6">
                                     {lec}

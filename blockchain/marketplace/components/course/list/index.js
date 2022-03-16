@@ -24,7 +24,6 @@ export default function CourseList() {
                     </div>
                 </li>
             </ul>
-            
         </div>
     )
 }
