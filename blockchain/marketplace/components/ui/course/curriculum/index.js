@@ -1,6 +1,6 @@
 
 
-export default function Curriculum() {
+export default function Curriculum({locked}) {
 
     const lectures = [
         "How to init App",
@@ -10,6 +10,8 @@ export default function Curriculum() {
         "How to write For Loops",
         "Switch Statement"
     ]
+
+    const statusClass = "px-2 inline-flex leading-5 font-semibold rounded-full"
 
     return (
         <div className = "pt-10">
@@ -32,12 +34,18 @@ export default function Curriculum() {
                                     {lec}
                                 </div>
                                 <div className = "col-lg">
-                                    <span className="px-2 inline-flex leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Unlocked
+                                    {/* Red if locked, green if unlocked */}
+                                    <span className={ 
+                                        locked ? 
+                                        `bg-red-100 text-red-800 ${statusClass}` :
+                                        `bg-green-100 text-green-800 ${statusClass}`
+                                        }
+                                    >
+                                        {locked ? "Locked" : "Unlocked"} {/*if true, it will write locked, otherwise unlocked*/}
                                     </span>
                                 </div>
                                 <div className = "col-lg-2">
-                                    <a className = "text-primary" href = "#">Play</a>
+                                    <a className = "text-primary" href = "#">{locked ? "Get Access" : "Play"}</a>
                                 </div>
                             </div>
                         </li>
