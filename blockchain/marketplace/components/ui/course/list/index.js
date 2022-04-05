@@ -16,22 +16,5 @@ export default function CourseList({courses}) {
                 
             )}
         </div>
-        // <div class="container pt-3">
-        //     <div class="row">
-        //         <div class="col-sm">
-        //             <CourseOutline />
-        //         </div>
-        //         <div class="col-sm">
-        //             <CourseOutline />
-        //         </div>
-        //         <div class="w-100 pb-4"></div>
-        //         <div class="col-sm">
-        //             <CourseOutline />
-        //         </div>
-        //         <div class="col-sm">
-        //             <CourseOutline />
-        //         </div>
-        //     </div>
-        // </div>
     )
 }

@@ -1,10 +1,20 @@
+import { useWeb3 } from "@components/providers"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { useAccount } from "@components/web3/hooks/useAccount"
 
 
 
 export default function Navbar() {
+    const { connect, isLoading, isWeb3Loaded } = useWeb3()
+    // const _useAccount = useAccount(web3) //remember, useAccount(web3) returns a function.
+    // const { account } = _useAccount() //this is using the function to get the account
+    const { account } = useAccount()
+    const router = useRouter();
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            {account}
             <Link href="/">
                 <a className="navbar-brand">ETH-Market</a>
             </Link>
@@ -15,7 +25,7 @@ export default function Navbar() {
                 <ul className="navbar-nav">
                     <li className="nav-item active">
                         <Link href="/">
-                            <a className="nav-link font-semibold">Marketplace <span class="sr-only">(current)</span></a>
+                            <a className="nav-link font-semibold">Marketplace <span className="sr-only">(current)</span></a>
                         </Link>
                     </li>
                     <li className="nav-item">
@@ -29,7 +39,7 @@ export default function Navbar() {
                         </Link>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                         <Link href="/">
                             <a className="nav-link font-semibold">Company</a>
@@ -37,7 +47,15 @@ export default function Navbar() {
                     </li>
                     <li className="nav-item">
                         <Link href="/">
-                            <a className="nav-link text-primary font-semibold">Connect</a>
+                            {isLoading ?
+                                <a className="btn btn-primary disabled text-primary font-semibold text-white" onClick = {connect} role = "button" aria-disabled="true">Loading...</a> 
+                                :
+                            isWeb3Loaded
+                                ?
+                                <a className="btn btn-primary text-primary font-semibold text-white" onClick = {connect} role = "button">Connect</a> 
+                                :
+                                <a className="btn btn-primary text-primary font-semibold text-white" onClick = {() => router.push("https://metamask.io/")} role = "button">Install Metamask</a>
+                            }
                         </Link>
                     </li>
                 </ul>
