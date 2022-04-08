@@ -14,7 +14,6 @@ export default function Navbar() {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            {account}
             <Link href="/">
                 <a className="navbar-brand">ETH-Market</a>
             </Link>
@@ -48,11 +47,15 @@ export default function Navbar() {
                     <li className="nav-item">
                         <Link href="/">
                             {isLoading ?
-                                <a className="btn btn-primary disabled text-primary font-semibold text-white" onClick = {connect} role = "button" aria-disabled="true">Loading...</a> 
+                                <a className="btn btn-primary disabled text-primary font-semibold text-white" role = "button" aria-disabled="true">Loading...</a> 
                                 :
                             isWeb3Loaded
                                 ?
-                                <a className="btn btn-primary text-primary font-semibold text-white" onClick = {connect} role = "button">Connect</a> 
+                                account
+                                    ?
+                                    <a className="btn btn-primary disabled text-primary font-semibold text-white" onClick = {connect} role = "button" aria-disabled="true">Hello there</a> 
+                                    :
+                                    <a className="btn btn-primary text-primary font-semibold text-white" onClick = {connect} role = "button">Connect</a> 
                                 :
                                 <a className="btn btn-primary text-primary font-semibold text-white" onClick = {() => router.push("https://metamask.io/")} role = "button">Install Metamask</a>
                             }
