@@ -1,7 +1,7 @@
 import { useWeb3 } from "@components/providers"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useAccount } from "@components/web3/hooks/useAccount"
+import { useAccount } from "@components/hooks/web3/useAccount"
 
 
 
@@ -23,7 +23,7 @@ export default function Navbar() {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item active">
-                        <Link href="/">
+                        <Link href="/marketplace">
                             <a className="nav-link font-semibold">Marketplace <span className="sr-only">(current)</span></a>
                         </Link>
                     </li>
@@ -51,7 +51,7 @@ export default function Navbar() {
                                 :
                             isWeb3Loaded
                                 ?
-                                account
+                                account.data
                                     ?
                                     <a className="btn btn-primary disabled text-primary font-semibold text-white" onClick = {connect} role = "button" aria-disabled="true">Hello there</a> 
                                     :

@@ -1,6 +1,6 @@
 import { CourseOutline } from "../individualCourse";
 
-
+ 
 export default function CourseList({courses}) {
     return (
         //lg:grid-cols-2 means it will show two columns on a large screen, md:grid-cols-1 shows one col for small screen
