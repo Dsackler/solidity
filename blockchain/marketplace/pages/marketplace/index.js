@@ -3,6 +3,7 @@ import { BaseLayout } from "@components/ui/layout"
 import { CourseList } from "@components/ui/course"
 import { WalletDisplay } from "@components/ui/web3"
 import { getAllCourses } from "@content/courses/fetcher"
+import { CourseOutline } from "@components/ui/course/individualCourse"
 
 export function Marketplace({courses}) { //we get courses from getStaticProps()
 
@@ -12,10 +13,11 @@ export function Marketplace({courses}) { //we get courses from getStaticProps()
       <div className = "pt-4">
         <WalletDisplay />
       </div>
-      
-      <CourseList
-        courses = {courses}
-      />
+
+      <CourseList courses = {courses} >
+        {/* //this is what is being passed in as children */}
+        { course => <CourseOutline key = {course.id} courseInfo = {course}/> }
+      </CourseList>
     </>
   )
 }

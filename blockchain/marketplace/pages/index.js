@@ -4,6 +4,7 @@ import { CourseList } from "@components/ui/course"
 import { OrderCard } from "@components/ui/orders"
 import { EthRates, WalletDisplay } from "@components/ui/web3"
 import { getAllCourses } from "@content/courses/fetcher"
+import { CourseOutline } from "@components/ui/course/individualCourse"
 
 export function Home({courses}) { //we get courses from getStaticProps()
 
@@ -15,9 +16,10 @@ export function Home({courses}) { //we get courses from getStaticProps()
       <WalletDisplay />
       <EthRates />
       <OrderCard />
-      <CourseList
-        courses = {courses}
-      />
+      <CourseList courses = {courses} >
+          {/* //this is what is being passed in as children */}
+          { course => <CourseOutline key = {course.id} courseInfo = {course}/> } 
+      </CourseList>
     </>
   )
 }
