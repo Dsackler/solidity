@@ -4,14 +4,16 @@ import { CourseList } from "@components/ui/course"
 import { WalletDisplay } from "@components/ui/web3"
 import { getAllCourses } from "@content/courses/fetcher"
 import { CourseOutline } from "@components/ui/course/individualCourse"
+import { useNetwork } from "@components/hooks/web3/useNetwork"
 
 export function Marketplace({courses}) { //we get courses from getStaticProps()
+  const { network } = useNetwork()
 
   return (
     <>
       {/* Passing all of these into base layout as children*/}
       <div className = "pt-4">
-        <WalletDisplay />
+        <WalletDisplay network = {network.data}/>
       </div>
 
       <CourseList courses = {courses} >
