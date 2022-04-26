@@ -14,7 +14,7 @@ export default function WalletDisplay({network, account}) {
                 <a href="#" className="btn btn-light p-2 shadow-md">Learn how to purchase</a>
             </div>
             <div className = "ml-auto mr-10 mb-2">
-                {(!network.isSupported && isWeb3Loaded) &&
+                {(!network.isSupported && isWeb3Loaded && !network.hasFinishedFetch) &&
                 <div className = "bg-red-700 rounded-lg text-white font-semibold p-3">
                     <div>Connected to wrong network</div>
                     <div>

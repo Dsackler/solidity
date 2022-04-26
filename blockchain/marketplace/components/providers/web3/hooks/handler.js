@@ -31,11 +31,9 @@ export const handler = web3 => () => { //function returns a function
     })
 
     return { 
-        account: {
-            data, //address
-            isAdmin: (data && adminAddresses[web3.utils.keccak256(data)]) ?? false, //basically, data is the address. So if adminAddresses[data] = true, then it is the admin
-            mutate,
-            ...rest
-       }
+        data, //address
+        isAdmin: (data && adminAddresses[web3.utils.keccak256(data)]) ?? false, //basically, data is the address. So if adminAddresses[data] = true, then it is the admin
+        mutate,
+        ...rest
     }
 }
