@@ -6,7 +6,7 @@ import { useAccount } from "@components/hooks/web3"
 
 
 export default function Navbar() {
-    const { connect, isLoading, isWeb3Loaded } = useWeb3()
+    const { connect, isLoading, requireInstall } = useWeb3()
     // const _useAccount = useAccount(web3) //remember, useAccount(web3) returns a function.
     // const { account } = _useAccount() //this is using the function to get the account
     const { account } = useAccount()
@@ -49,15 +49,16 @@ export default function Navbar() {
                             {isLoading ?
                                 <a className="btn btn-primary disabled text-primary font-semibold text-white" role = "button" aria-disabled="true">Loading...</a> 
                                 :
-                            isWeb3Loaded
-                                ?
                                 account.data
                                     ?
                                     <a className="btn btn-primary disabled text-primary font-semibold text-white" onClick = {connect} role = "button" aria-disabled="true">Hello there</a> 
                                     :
-                                    <a className="btn btn-primary text-primary font-semibold text-white" onClick = {connect} role = "button">Connect</a> 
+                                    requireInstall 
+                                    ?
+                                        <a className="btn btn-primary text-primary font-semibold text-white" onClick = {() => router.push("https://metamask.io/")} role = "button">Install Metamask</a>
+                                        
                                 :
-                                <a className="btn btn-primary text-primary font-semibold text-white" onClick = {() => router.push("https://metamask.io/")} role = "button">Install Metamask</a>
+                                <a className="btn btn-primary text-primary font-semibold text-white" onClick = {connect} role = "button">Connect</a> 
                             }
                         </Link>
                     </li>

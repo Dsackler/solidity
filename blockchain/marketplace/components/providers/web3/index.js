@@ -15,7 +15,8 @@ export default function Web3Provider({children}) {
         provider: null,
         web3: null,
         contract: null,
-        isLoading: true
+        isLoading: true,
+        hooks: setupHooks()
     })
 
     useEffect(() => { //using useEffect with no dependencies because we want this to run on the client side and for it to happen imediately 
@@ -27,7 +28,8 @@ export default function Web3Provider({children}) {
                     provider,
                     web3,
                     contract: null,
-                    isLoading: false
+                    isLoading: false,
+                    hooks: setupHooks(web3)
                 })
             } else {
                 setWeb3Api(api => ({...api, isLoading: false})) 
@@ -42,11 +44,10 @@ export default function Web3Provider({children}) {
     //useMeme returns a new, memoized object. 
     //NOTICE: it takes web3Api from above, spreads it, then tacks on "isWeb3Loaded," "hooks", etc 
     const _web3Api = useMemo(() => {
-        const { web3, provider } = web3Api
+        const { web3, provider, isLoading } = web3Api
         return {
             ...web3Api,
-            isWeb3Loaded: web3 != null,
-            getHooks: () => setupHooks(web3), //getHooks calls setuphooks which returns the account
+            requireInstall: !isLoading && !web3,
             connect: provider ?
                 async () => {
                     try {
@@ -72,6 +73,6 @@ export function useWeb3() {
 }
 
 export function useHooks(callback) {
-    const { getHooks } = useWeb3() //getHooks is from the object in const _web3Api
-    return callback(getHooks()) //getHooks gets all of the hooks. Then it is passed into the callback function
+    const { hooks } = useWeb3() //getHooks is from the object in const _web3Api
+    return callback(hooks) //getHooks gets all of the hooks. Then it is passed into the callback function
 }

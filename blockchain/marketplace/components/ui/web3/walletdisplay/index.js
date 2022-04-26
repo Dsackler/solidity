@@ -4,7 +4,7 @@ import { useWeb3 } from "@components/providers"
 
 
 export default function WalletDisplay({network, account}) {
-    const { isWeb3Loaded } = useWeb3()
+    const { requireInstall } = useWeb3()
     return (
         <div className="card bg-primary shadow-md">
             <div className="card-body text-white p-4 inline">
@@ -14,7 +14,7 @@ export default function WalletDisplay({network, account}) {
                 <a href="#" className="btn btn-light p-2 shadow-md">Learn how to purchase</a>
             </div>
             <div className = "ml-auto mr-10 mb-2">
-                {(!network.isSupported && isWeb3Loaded && !network.hasFinishedFetch) &&
+                {(!network.isSupported && !network.hasFinishedFetch) &&
                 <div className = "bg-red-700 rounded-lg text-white font-semibold p-3">
                     <div>Connected to wrong network</div>
                     <div>
@@ -24,6 +24,11 @@ export default function WalletDisplay({network, account}) {
                 </div>
                 }
             </div>
+            { requireInstall &&
+                <div className = "bg-yellow-500 p-4 rounded-lg">
+                    Cannot connect to network. Please install metaMask
+                </div>
+            }
             {network.data ?
             <div className = "text-right text-white pr-5"><span>Currently on </span><strong className="text-2xl">{network.data}</strong></div>
             :
