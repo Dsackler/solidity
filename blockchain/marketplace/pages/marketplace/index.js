@@ -19,7 +19,19 @@ export function Marketplace({courses}) { //we get courses from getStaticProps()
 
       <CourseList courses = {courses} >
         {/* //this is what is being passed in as children */}
-        { course => <CourseOutline key = {course.id} courseInfo = {course}/> }
+        { course => 
+          <CourseOutline 
+            key = {course.id} 
+            courseInfo = {course}
+            Footer = {() => 
+              <div className = "mt-3">
+                <a className="btn btn-outline-primary">
+                  Purchase
+                </a>
+              </div>
+            }
+            /> 
+        }
       </CourseList>
     </>
   )
